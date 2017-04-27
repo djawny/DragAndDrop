@@ -3,29 +3,62 @@ package com.sdaacademy.jawny.daniel.draganddrop;
 import android.content.ClipData;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
+
+    @BindView(R.id.myimage1)
+    ImageView mImage1;
+
+    @BindView(R.id.myimage2)
+    ImageView mImage2;
+
+    @BindView(R.id.myimage3)
+    ImageView mImage3;
+
+    @BindView(R.id.myimage4)
+    ImageView mImage4;
+
+    @BindView(R.id.topleft)
+    LinearLayout mTopLeft;
+
+    @BindView(R.id.topright)
+    LinearLayout mTopRight;
+
+    @BindView(R.id.bottomleft)
+    LinearLayout mBottomLeft;
+
+    @BindView(R.id.bottomright)
+    LinearLayout mBottomRight;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.myimage1).setOnTouchListener(new MyDragTouchListener());
-        findViewById(R.id.myimage2).setOnTouchListener(new MyDragTouchListener());
-        findViewById(R.id.myimage3).setOnTouchListener(new MyDragTouchListener());
-        findViewById(R.id.myimage4).setOnTouchListener(new MyDragTouchListener());
-        findViewById(R.id.topleft).setOnDragListener(new MyDropListener());
-        findViewById(R.id.topright).setOnDragListener(new MyDropListener());
-        findViewById(R.id.bottomleft).setOnDragListener(new MyDropListener());
-        findViewById(R.id.bottomright).setOnDragListener(new MyDropListener());
+        ButterKnife.bind(this);
+        setListeners();
+    }
+
+    private void setListeners() {
+        mImage1.setOnTouchListener(new MyDragTouchListener());
+        mImage2.setOnTouchListener(new MyDragTouchListener());
+        mImage3.setOnTouchListener(new MyDragTouchListener());
+        mImage4.setOnTouchListener(new MyDragTouchListener());
+        mTopLeft.setOnDragListener(new MyDropListener());
+        mTopRight.setOnDragListener(new MyDropListener());
+        mBottomLeft.setOnDragListener(new MyDropListener());
+        mBottomRight.setOnDragListener(new MyDropListener());
     }
 
     private final class MyDragTouchListener implements View.OnTouchListener {
@@ -47,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class MyDropListener implements View.OnDragListener {
+    private class MyDropListener implements View.OnDragListener {
         Drawable enterShape = ContextCompat.getDrawable(MainActivity.this, R.drawable.shape_droptarget);
         Drawable normalShape = ContextCompat.getDrawable(MainActivity.this, R.drawable.shape);
 
